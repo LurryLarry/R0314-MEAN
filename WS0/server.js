@@ -1,10 +1,8 @@
-const http = require('http');
+const http = require("http");
 const app = http.createServer((request, res) => {
-
-  res.writeHead(200, {"Content-Type": "text/html"});
+  res.writeHead(200, { "Content-Type": "text/html" });
 
   if (request.url === "/") {
-
     res.write("Olet saapunut palvelimen juureen.");
 
     res.write(`<h1>Taulukko</h1>
@@ -25,19 +23,15 @@ const app = http.createServer((request, res) => {
     <th>Vantaa</th>
   </tr>
     </table>`);
-
   } else if (request.url === "/helloworld") {
     res.write("Nyt yrität hakea hoi Maailmaa!");
   } else if (request.url === "/topsecret") {
     res.write("Tervetuloa salakerhoon");
   }
 
-
-
-
   res.end();
 });
 
 app.listen(8081);
 
-console.log('Server running at http://127.0.0.1:8081/');
+console.log("Server running at http://127.0.0.1:8081/");
