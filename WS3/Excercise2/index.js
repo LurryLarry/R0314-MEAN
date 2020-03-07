@@ -73,6 +73,6 @@ app.get("*", function(req, res) {
   res.send("Cant find the requested page", 404);
 });
 
-app.listen(8081, function() {
+app.listen(PORT, function() {
   console.log("Example app listening on port 8081!");
 });
