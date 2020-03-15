@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
+const bodyParser = require("body-parser");
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public/demosite/"));
 
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/public/index.html");
-});
+app.get('/adduser', function(req, res) {
+    res.sendFile(__dirname + '/public/demosite/adduser.html');
+})
 
-app.get("/list", function(req, res) {
+app.get('/details', function(req, res) {
     let data = require("./exampledata2.json");
 
     let results = '<table border="1">';
@@ -26,18 +28,18 @@ app.get("/list", function(req, res) {
     }
 
     res.send(results);
-
 });
 
-app.get("/add", function(req, res) {
-    let data = require('./exampledata2.json');
 
+app.post('/adduser', function(req, res) {
+
+    let data = require('./exampledata2.json');
     data.push({
-        "Name": "Lari Vesterinen",
-        "Company": "Microsoft",
-        "Email": "lari@email.com",
-        "Date": "15/03/2020 \r\n"
-    });
+        "Name": req.body.name,
+        "Email": req.body.email,
+        "Date": new Date(),
+        "Company": req.body.company
+    });;
 
     let jsonString = JSON.stringify(data);
 
@@ -48,14 +50,6 @@ app.get("/add", function(req, res) {
 
     res.send("Saved the data to a file. Browse to the /details to see the contents of the file");
 });
-
-app.get("*", function(req, res) {
-    res.send("Cant find the requested page", 404);
-});
-
-
-
-
 
 app.listen(8081, function() {
     console.log("8081 is the magic port");
