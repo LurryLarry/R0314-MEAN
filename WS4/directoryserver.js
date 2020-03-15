@@ -8,7 +8,24 @@ app.get("/", function(req, res) {
 });
 
 app.get("/list", function(req, res) {
-    res.sendFile(__dirname + "/textdata.txt");
+    let data = require("./exampledata2.json");
+
+    let results = '<table border="1">';
+
+    for (let i = 0; i < data.length; i++) {
+        results += '<tr><td>' +
+            data[i].Name +
+            '</td><td>' +
+            data[i].Email +
+            '</td><td>' +
+            data[i].Company +
+            '</td><td>' +
+            data[i].Date +
+            '</td></tr>';
+    }
+
+    res.send(results);
+
 });
 
 app.get("/add", function(req, res) {
